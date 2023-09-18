@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/users.model';
 
@@ -11,11 +11,47 @@ const apiUrl = environment.apiUrl
 })
 export class UsersService {
 
+  private dataSource = new BehaviorSubject<User[] | null>(null);
+  userFavs = this.dataSource.asObservable();
+
+
   constructor(private http: HttpClient) { }
 
   getUsersByName(data: any): Observable<User[]> {
     const route = `/search/`;
     return this.http.get<any>(`${apiUrl}${route}${data.username}`);
   };
+
+
+  updatedDataSource(data: User[] | null) {
+    this.dataSource.next(data);
+  }
+
+  addToFav(user: User) {
+
+    this.dataSource.subscribe(
+      {
+        next: (favs) => {
+          if (!favs) {
+            favs = [];
+          }
+
+          favs.push(user);
+
+          this.updatedDataSource(favs);
+
+          const parseData =
+            JSON.stringify(favs);
+
+          localStorage.setItem(
+            "favs",
+            parseData
+          );
+
+        }
+      }
+    );
+
+  }
 
 }

@@ -49,4 +49,8 @@ export class SearchComponent {
     );
   }
 
+  addToFav(user: User) {
+    this.usersService.addToFav(user);
+  }
+
 }

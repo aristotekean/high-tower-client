@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-dark p-2">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand">
     <img
       src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
       width="30"
@@ -8,5 +8,31 @@
       alt=""
     />
     High-Tower
+
+    <div class="btn-group" dropdown>
+      <button
+        id="button-basic"
+        dropdownToggle
+        type="button"
+        class="btn btn-primary dropdown-toggle"
+        aria-controls="dropdown-basic"
+      >
+        Favs <span class="caret"></span>
+      </button>
+      <ul
+        id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu"
+        role="menu"
+        aria-labelledby="button-basic"
+      >
+        <div *ngFor="let u of usersService.userFavs | async">
+          <li role="menuitem">
+            <a class="dropdown-item" href="#">{{ u.name }}</a>
+          </li>
+          <li class="divider dropdown-divider"></li>
+        </div>
+      </ul>
+    </div>
   </a>
 </nav>

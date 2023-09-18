@@ -26,14 +26,17 @@
       </div>
       <button type="submit">search</button>
     </form>
-    <div>
-      <div *ngFor="let u of users" class="card" style="width: 18rem">
+    <ng-container *ngFor="let u of users">
+      <div class="card" style="width: 18rem">
         <img [src]="u.imageUrl" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ u.name }}</h5>
-          <a href="#" class="btn btn-primary">see more</a>
+          <button class="btn btn-primary">see more</button>
+          <button type="button" class="btn btn-secondary" (click)="addToFav(u)">
+            add fav
+          </button>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </div>
