@@ -29,7 +29,9 @@ export class SearchComponent {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      username: ['', Validators.required, Validators.minLength(10), Validators.pattern(/^[a-zA-Z ]+$/)],
+      username: ['', [Validators.required,
+        Validators.minLength(10),
+        Validators.pattern(/^[a-zA-Z ]+$/)]],
     });
   };
 
