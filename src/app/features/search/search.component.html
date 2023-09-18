@@ -1,3 +1,31 @@
-<div class="d-flex justify-content-center align-items-center h-100">
-  <h1>SEARCH</h1>
+<div class="d-flex justify-content-center p-5">
+  <div class="container col-md-6">
+    <form [formGroup]="form" (ngSubmit)="saveUser($event)">
+      <h1>User: {{ usernameField?.value }}</h1>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">@</span>
+        </div>
+        <input
+          type="search"
+          class="form-control"
+          formControlName="username"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
+        <ng-container
+          *ngFor="let validation of utilsService.validationMessages.username"
+        >
+          <small
+            *ngIf="
+              usernameField?.hasError(validation.type) && usernameFieldDirty
+            "
+          >
+            {{ validation.message }}
+          </small>
+        </ng-container>
+      </div>
+    </form>
+  </div>
 </div>
