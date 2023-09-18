@@ -1,11 +1,8 @@
 <div class="d-flex justify-content-center p-5">
   <div class="container col-md-6">
-    <form [formGroup]="form" (ngSubmit)="saveUser($event)">
+    <form [formGroup]="form" (ngSubmit)="searchUser()">
       <h1>User: {{ usernameField?.value }}</h1>
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">@</span>
-        </div>
         <input
           type="search"
           class="form-control"
@@ -27,6 +24,16 @@
           </small>
         </ng-container>
       </div>
+      <button type="submit">search</button>
     </form>
+    <div>
+      <div *ngFor="let u of users" class="card" style="width: 18rem">
+        <img [src]="u.imageUrl" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ u.name }}</h5>
+          <a href="#" class="btn btn-primary">see more</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from '../utils/utils.service';
+import { UsersService } from './services/users.service';
+import { User } from './models/users.model';
 
 @Component({
   selector: 'app-search',
@@ -9,12 +11,14 @@ import { UtilsService } from '../utils/utils.service';
 })
 export class SearchComponent {
 
-  // Declare a form
+  users: User[] = [];
+
   form!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     public utilsService: UtilsService,
+    private usersService: UsersService
   ) {
     this.buildForm();
   };
@@ -30,13 +34,19 @@ export class SearchComponent {
   private buildForm() {
     this.form = this.formBuilder.group({
       username: ['', [Validators.required,
-        Validators.minLength(10),
-        Validators.pattern(/^[a-zA-Z ]+$/)]],
+      Validators.minLength(3),
+      Validators.pattern(/^[a-zA-Z ]+$/)]],
     });
   };
 
-  saveUser(event: any) {
-    console.log(this.form.value);
+  searchUser() {
+    let data = this.form.value;
+    this.usersService.getUsersByName(data).subscribe(
+      {
+        next: r => this.users = r
+
+      }
+    );
   }
 
 }
