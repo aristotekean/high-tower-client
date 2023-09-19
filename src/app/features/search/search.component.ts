@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public utilsService: UtilsService,
-    private usersService: UsersService
+    public usersService: UsersService
   ) {
     this.buildForm();
   };

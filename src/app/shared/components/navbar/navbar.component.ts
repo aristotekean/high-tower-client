@@ -8,9 +8,4 @@ import { UsersService } from 'src/app/features/search/services/users.service';
 })
 export class NavbarComponent {
 
-
-  constructor(public usersService: UsersService) {
-
-  }
-
 }

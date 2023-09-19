@@ -1,9 +1,16 @@
+<div class="jumbotron jumbotron-fluid text-center pt-3">
+  <div class="container">
+    <h1 class="display-4">High-Tower 🗼</h1>
+    <p class="lead">Make hiring process easy again!</p>
+  </div>
+</div>
+
 <div class="d-flex justify-content-center p-5">
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <form [formGroup]="form" (ngSubmit)="searchUser()">
-          <h1>User: {{ usernameField?.value }}</h1>
+          <h1>User: {{ usernameField?.value | uppercase }}</h1>
           <div class="input-group mb-3">
             <input
               type="search"
@@ -13,51 +20,72 @@
               aria-label="Username"
               aria-describedby="basic-addon1"
             />
-            <ng-container
-              *ngFor="
-                let validation of utilsService.validationMessages.username
-              "
-            >
-              <small
-                class="text-danger"
-                *ngIf="
-                  usernameField?.hasError(validation.type) && usernameFieldDirty
-                "
-              >
-                {{ validation.message }}
-              </small>
-            </ng-container>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i>
+            </button>
           </div>
-          <button type="submit">Search</button>
+          <ng-container
+            *ngFor="let validation of utilsService.validationMessages.username"
+          >
+            <div
+              *ngIf="
+                usernameField?.hasError(validation.type) && usernameFieldDirty
+              "
+              class="alert alert-warning"
+              role="alert"
+            >
+              {{ validation.message }}
+            </div>
+          </ng-container>
         </form>
+
         <ng-container *ngFor="let u of users">
-          <div class="card" style="width: 18rem">
-            <img [src]="u.imageUrl" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">{{ u.name }}</h5>
-              <a
-                class="btn btn-primary"
-                [href]="'https://torre.ai/' + u.username"
-                target="_blank"
-                >see more</a
-              >
-              <button
-                type="button"
-                class="btn btn-secondary"
-                (click)="addToFav(u)"
-              >
-                add fav
-              </button>
+          <div class="card m-5">
+            <div class="row">
+              <div class="col-6">
+                <img [src]="u?.imageUrl" class="card-img-top" alt="..." />
+              </div>
+              <div class="col-6">
+                <div class="card-body">
+                  <div class="text-center">
+                    <h5 class="card-title">{{ u?.name }}</h5>
+                    <h5 class="card-subtitle">{{ u?.professionalHeadline }}</h5>
+                  </div>
+                  <a
+                    class="btn btn-primary btn-sm m-1"
+                    [href]="'https://torre.ai/' + u?.username"
+                    target="_blank"
+                    >See more</a
+                  >
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-sm"
+                    (click)="addToFav(u)"
+                  >
+                    Add fav
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </ng-container>
       </div>
+
       <div class="col-md-3">
         <h1>Trends</h1>
 
         <ul class="list-group">
           <ng-container *ngFor="let t of trends">
             <li class="list-group-item">{{ t.query | titlecase }}</li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h1>Favs</h1>
+
+        <ul class="list-group">
+          <ng-container *ngFor="let u of usersService.userFavs | async">
+            <li class="list-group-item">{{ u.name | titlecase }}</li>
           </ng-container>
         </ul>
       </div>
