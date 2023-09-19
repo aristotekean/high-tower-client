@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from '../utils/utils.service';
 import { UsersService } from './services/users.service';
@@ -9,7 +9,7 @@ import { User } from './models/users.model';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
 
   users: User[] = [];
 
@@ -44,13 +44,21 @@ export class SearchComponent {
     this.usersService.getUsersByName(data).subscribe(
       {
         next: r => this.users = r
-
       }
     );
+
+    this.usersService.saveQuery(data).subscribe(
+      {
+        next: r => console.log(r)
+      }
+    )
   }
 
   addToFav(user: User) {
     this.usersService.addToFav(user);
   }
-
+  
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 }

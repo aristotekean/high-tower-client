@@ -1,42 +1,53 @@
 <div class="d-flex justify-content-center p-5">
-  <div class="container col-md-6">
-    <form [formGroup]="form" (ngSubmit)="searchUser()">
-      <h1>User: {{ usernameField?.value }}</h1>
-      <div class="input-group mb-3">
-        <input
-          type="search"
-          class="form-control"
-          formControlName="username"
-          placeholder="Username"
-          aria-label="Username"
-          aria-describedby="basic-addon1"
-        />
-        <ng-container
-          *ngFor="let validation of utilsService.validationMessages.username"
-        >
-          <small
-            class="text-danger"
-            *ngIf="
-              usernameField?.hasError(validation.type) && usernameFieldDirty
-            "
-          >
-            {{ validation.message }}
-          </small>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form [formGroup]="form" (ngSubmit)="searchUser()">
+          <h1>User: {{ usernameField?.value }}</h1>
+          <div class="input-group mb-3">
+            <input
+              type="search"
+              class="form-control"
+              formControlName="username"
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+            <ng-container
+              *ngFor="let validation of utilsService.validationMessages.username"
+            >
+              <small
+                class="text-danger"
+                *ngIf="
+                  usernameField?.hasError(validation.type) && usernameFieldDirty
+                "
+              >
+                {{ validation.message }}
+              </small>
+            </ng-container>
+          </div>
+          <button type="submit">search</button>
+        </form>
+        <ng-container *ngFor="let u of users">
+          <div class="card" style="width: 18rem">
+            <img [src]="u.imageUrl" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">{{ u.name }}</h5>
+              <button class="btn btn-primary">see more</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="addToFav(u)"
+              >
+                add fav
+              </button>
+            </div>
+          </div>
         </ng-container>
       </div>
-      <button type="submit">search</button>
-    </form>
-    <ng-container *ngFor="let u of users">
-      <div class="card" style="width: 18rem">
-        <img [src]="u.imageUrl" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">{{ u.name }}</h5>
-          <button class="btn btn-primary">see more</button>
-          <button type="button" class="btn btn-secondary" (click)="addToFav(u)">
-            add fav
-          </button>
-        </div>
+      <div class="col-md-3">
+        <h1>Trends</h1>
       </div>
-    </ng-container>
+    </div>
   </div>
 </div>

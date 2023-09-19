@@ -22,6 +22,10 @@ export class UsersService {
     return this.http.get<any>(`${apiUrl}${route}${data.username}`);
   };
 
+  saveQuery(data: any): Observable<User[]> {
+    const route = `/trends/`;
+    return this.http.post<any>(`${apiUrl}${route}`, { query: data.username });
+  };
 
   updatedDataSource(data: User[] | null) {
     this.dataSource.next(data);
