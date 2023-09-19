@@ -45,7 +45,10 @@ export class SearchComponent implements OnInit {
     let data = this.form.value;
     this.usersService.getUsersByName(data).subscribe(
       {
-        next: r => this.users = r
+        next: r => {
+          this.users = r
+          this.getTrends();
+        }
       }
     );
 
@@ -60,11 +63,15 @@ export class SearchComponent implements OnInit {
     this.usersService.addToFav(user);
   }
 
-  ngOnInit(): void {
+  getTrends() {
     this.usersService.getTrends().subscribe(
       {
         next: r => this.trends = r
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.getTrends()
   }
 }

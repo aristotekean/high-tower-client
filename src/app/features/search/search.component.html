@@ -28,14 +28,19 @@
               </small>
             </ng-container>
           </div>
-          <button type="submit">search</button>
+          <button type="submit">Search</button>
         </form>
         <ng-container *ngFor="let u of users">
           <div class="card" style="width: 18rem">
             <img [src]="u.imageUrl" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">{{ u.name }}</h5>
-              <button class="btn btn-primary">see more</button>
+              <a
+                class="btn btn-primary"
+                [href]="'https://torre.ai/' + u.username"
+                target="_blank"
+                >see more</a
+              >
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -49,9 +54,12 @@
       </div>
       <div class="col-md-3">
         <h1>Trends</h1>
-        <ng-container *ngFor="let t of trends">
-          {{ t.query }} <br>
-        </ng-container>
+
+        <ul class="list-group">
+          <ng-container *ngFor="let t of trends">
+            <li class="list-group-item">{{ t.query | titlecase }}</li>
+          </ng-container>
+        </ul>
       </div>
     </div>
   </div>
