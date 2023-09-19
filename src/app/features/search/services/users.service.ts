@@ -12,7 +12,7 @@ const apiUrl = environment.apiUrl
 })
 export class UsersService {
 
-  private dataSource = new BehaviorSubject<User[] | null>(null);
+  private dataSource = new BehaviorSubject<User[]>([]);
   userFavs = this.dataSource.asObservable();
 
 
@@ -33,30 +33,29 @@ export class UsersService {
     return this.http.get<any>(`${apiUrl}${route}`);
   };
 
-  updatedDataSource(data: User[] | null) {
+  updatedDataSource(data: User[]) {
     this.dataSource.next(data);
   }
 
   addToFav(user: User) {
 
+
     this.dataSource.subscribe(
       {
         next: (favs) => {
-          if (!favs) {
-            favs = [];
-          }
+
+          console.log(favs);
 
           favs.push(user);
-
           this.updatedDataSource(favs);
 
-          const parseData =
-            JSON.stringify(favs);
+          // const parseData =
+          //   JSON.stringify(favs);
 
-          localStorage.setItem(
-            "favs",
-            parseData
-          );
+          // localStorage.setItem(
+          //   "favs",
+          //   parseData
+          // );
 
         }
       }

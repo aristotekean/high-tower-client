@@ -59,10 +59,6 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  addToFav(user: User) {
-    this.usersService.addToFav(user);
-  }
-
   getTrends() {
     this.usersService.getTrends().subscribe(
       {
