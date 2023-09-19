@@ -14,7 +14,9 @@
               aria-describedby="basic-addon1"
             />
             <ng-container
-              *ngFor="let validation of utilsService.validationMessages.username"
+              *ngFor="
+                let validation of utilsService.validationMessages.username
+              "
             >
               <small
                 class="text-danger"
@@ -47,6 +49,9 @@
       </div>
       <div class="col-md-3">
         <h1>Trends</h1>
+        <ng-container *ngFor="let t of trends">
+          {{ t.query }} <br>
+        </ng-container>
       </div>
     </div>
   </div>

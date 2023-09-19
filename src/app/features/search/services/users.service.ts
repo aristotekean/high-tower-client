@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/users.model';
+import { TrendResponse } from '../models/trends.models';
 
 const apiUrl = environment.apiUrl
 
@@ -25,6 +26,11 @@ export class UsersService {
   saveQuery(data: any): Observable<User[]> {
     const route = `/trends/`;
     return this.http.post<any>(`${apiUrl}${route}`, { query: data.username });
+  };
+
+  getTrends(): Observable<TrendResponse[]> {
+    const route = `/trends/`;
+    return this.http.get<any>(`${apiUrl}${route}`);
   };
 
   updatedDataSource(data: User[] | null) {

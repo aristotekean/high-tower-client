@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from '../utils/utils.service';
 import { UsersService } from './services/users.service';
 import { User } from './models/users.model';
+import { TrendResponse } from './models/trends.models';
 
 @Component({
   selector: 'app-search',
@@ -12,6 +13,7 @@ import { User } from './models/users.model';
 export class SearchComponent implements OnInit {
 
   users: User[] = [];
+  trends: TrendResponse[] = [];
 
   form!: FormGroup;
 
@@ -57,8 +59,12 @@ export class SearchComponent implements OnInit {
   addToFav(user: User) {
     this.usersService.addToFav(user);
   }
-  
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.usersService.getTrends().subscribe(
+      {
+        next: r => this.trends = r
+      }
+    );
   }
 }
